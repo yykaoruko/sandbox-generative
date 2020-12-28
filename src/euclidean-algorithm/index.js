@@ -2,6 +2,12 @@ function setup() {
   createCanvas(500, 500);
 }
 
+function keyPressed() {
+  if (keyCode === ENTER) {
+    save('euclidean-algorithm.png');
+  }
+}
+
 function draw() {
   const numA = 10;
   const numB = 6;
