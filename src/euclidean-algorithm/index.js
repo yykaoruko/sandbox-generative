@@ -1,12 +1,34 @@
-const numA = 29;
-const numB = 8;
+let numA = 7;
+let numB = 10;
+let threshold = 50;
+let ratio = numB / numA;
 const scaler = 50;
-const ratio = numB / numA;
-const threshold = 20;
+const color = 1;
+
 
 function setup() {
   createCanvas(500, 500);
-  divSquare(0, 0, width);
+  createSpan('A');
+  const inputNumA = createInput(numA.toString(), 'range');
+  createSpan('B');
+  const inputNumB = createInput(numB.toString(), 'range');
+  createSpan('Threshold');
+  const inputThreshold = createInput(threshold.toString(), 'range');
+  inputNumA.input(updateNumA);
+  inputNumB.input(updateNumB);
+  inputThreshold.input(updateThreshold);
+}
+
+function updateNumA() {
+  numA = Number(this.value());
+}
+
+function updateNumB() {
+  numB = Number(this.value());
+}
+
+function updateThreshold() {
+  threshold = Number(this.value());
 }
 
 function keyPressed() {
@@ -16,30 +38,8 @@ function keyPressed() {
 }
 
 function draw() {
-  // const numAA = numA * scaler;
-  // const numBB = numB * scaler;
-
-  // let xPosition = 0;
-  // let yPosition = 0;
-  // let count = 0;
-  // let rectWidth = width * ratio;
-  
-  // while(rectWidth > 0.1) {
-  //   count++;
-  //   if (count % 2 === 1) {
-  //     while(xPosition + rectWidth < width + 0.1) {
-  //       divSquare(xPosition, yPosition, rectWidth, ratio);
-  //       xPosition += rectWidth;
-  //     }
-  //     rectWidth = width - xPosition;
-  //   } else {
-  //     while(yPosition + rectWidth < width * ratio + 0.1) {
-  //       divSquare(xPosition, yPosition, rectWidth, ratio);
-  //       yPosition += rectWidth;
-  //     }
-  //     rectWidth = width * ratio - yPosition;
-  //   }
-  // }
+  ratio = numB / numA;
+  if (ratio !== 1) divSquare(0, 0, width);
 }
 
 // 正方形を長方形で分割する
@@ -52,8 +52,7 @@ function divSquare(xPositionOrigin, yPositionOrigin, rectWidthOrigin) {
   let yEndPosition = yPosition + rectWidth;
 
   colorMode(RGB, 1);
-  fill(random(1));
-  // fill(random(1), random(1), random(1));
+  fill(color);
   rect(xPosition, yPosition, rectWidth, rectWidth);
 
   while(rectWidth > threshold) {
@@ -84,8 +83,7 @@ function devRect(xPositionOrigin, yPositionOrigin, rectWidthOrigin) {
   let yEndPosition = yPosition + rectWidth / ratio;
 
   colorMode(RGB, 1);
-  fill(random(1));
-  // fill(random(1), random(1), random(1));
+  fill(color);
   rect(xPosition, yPosition, rectWidth, rectWidth / ratio);
 
   while(rectWidth > threshold) {
